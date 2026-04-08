@@ -1,0 +1,55 @@
+Metadata-Version: 2.4
+Name: NetT-learner
+Version: 0.1.0
+Summary: Package version of NetT-linear and NetT-GCN for network interference simulation
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: scipy
+Requires-Dist: scikit-learn
+Requires-Dist: networkx
+Requires-Dist: torch
+
+# NetT-learner
+
+A package-style refactor of the user's simulation code, with the implementation kept close to the original simulation logic.
+
+Included:
+- `generate_data(...)`
+- `NetTLinear` (outcome regression + kernel smoothing)
+- `NetTGCN` (GCN T-learner + kernel smoothing)
+
+## Install
+
+```bash
+pip install -e .
+```
+
+## Example
+
+```python
+from nett_learner import generate_data, NetTLinear, NetTGCN, get_device
+
+sim = generate_data(
+    num=500,
+    p_edge=0.01,
+    k=10,
+    seed=42,
+    balance=0.5,
+    y_model="gcn",
+    graph="sbm",
+)
+
+linear = NetTLinear(kernel="kr_rbf").fit(sim)
+linear_out = linear.estimate_effects(sim, X_cate=sim.X_raw)
+
+gcn = NetTGCN(
+    device=get_device(),
+    epochs=100,
+    hidden_features=32,
+    kernel="kr_rbf",
+    seed=42,
+).fit(sim)
+gcn_out = gcn.estimate_effects(sim, X_cate=sim.X_raw)
+```
