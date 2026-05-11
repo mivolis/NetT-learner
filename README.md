@@ -70,7 +70,7 @@ This repository includes a real-world dataset for studying **network interferenc
 
 ## Data Description
 
-* **Unit**: U.S. county (FIPS code)
+* **Node**: U.S. county (FIPS code)
 * **Network**: mobility-based connections between counties
 * **Treatment**: vaccination coverage (thresholded)
 * **Outcome**: log-transformed infection-related measure
@@ -103,57 +103,7 @@ for u, v in zip(network["geoid_o"], network["geoid_d"]):
 ```
 
 ---
-
-## Real Data Workflow
-
-### Step 1: Load data
-
-```python
-import pandas as pd
-
-cov = pd.read_csv("final_covariates_corr_lt_0p8.csv")
-outcome = pd.read_csv("final_outcome.csv")
-vax1 = pd.read_csv("final_vax1.csv")
-vax2 = pd.read_csv("final_vax2.csv")
-network = pd.read_csv("network_common.csv")
 ```
-
----
-
-### Step 2: Construct variables
-
-You need to build:
-
-* `X`: node covariates
-* `X_neighbor`: neighbor-aggregated covariates
-* `Z`: treatment indicator
-* `G`: exposure (treated neighbor intensity)
-
----
-
-### Step 3: Fit model
-
-```python
-model = NetTGCN(kernel="kr_rbf").fit(data)
-
-results = model.estimate_effects(
-    data,
-    X_cate=data.X_raw[:, 0].reshape(-1, 1)
-)
-```
-
----
-
-## 📈 Outputs
-
-The model returns:
-
-* `direct_node`: node-level direct effects
-* `peer_node`: node-level peer effects
-* `direct_cate`: smoothed direct effects
-* `peer_cate`: smoothed peer effects
-
----
 
 ## 🧩 Interpretation
 
@@ -168,52 +118,11 @@ The model returns:
 
 ---
 
-## ⚠️ Notes
-
-* Kernel smoothing is applied in a second stage
-* Multi-dimensional `X_cate` is supported
-* For visualization, use 1D features
-
----
-
-# 📁 Project Structure
-
-```text
-NetT-learner/
-├── src/nett_learner/
-│   ├── data.py
-│   ├── linear.py
-│   ├── gcn.py
-│   ├── smoothing.py
-│   └── utils.py
-├── example.py
-├── README.md
-└── pyproject.toml
-```
-
----
-
 # 🔁 Reproducibility
 
 * Python ≥ 3.10
-* Recommended:
-
-```bash
-OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python example.py
-```
-
----
-
-# 📌 Summary
-
-This repository provides:
-
-* A modular implementation of NetT-learner
-* A simulation framework for network interference
-* A real-world application on U.S. county data
-
 ---
 
 # 📎 Citation
 
-(Coming soon — add your paper here)
+Coming soon
