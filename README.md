@@ -36,46 +36,6 @@ The framework consists of two stages:
 
 ---
 
-# 🧪 Simulation Example
-
-```python
-from nett_learner import generate_data, NetTLinear, NetTGCN, get_device
-
-# Generate synthetic data
-sim = generate_data(
-    num=500,
-    p_edge=0.01,
-    k=10,
-    seed=42,
-    balance=0.5,
-    y_model="gcn",
-    graph="sbm",
-)
-
-# Use a single feature for CATE
-X_cate = sim.X_raw[:, 0].reshape(-1, 1)
-
-# NetT-linear
-linear = NetTLinear(kernel="kr_rbf").fit(sim)
-linear_out = linear.estimate_effects(sim, X_cate=X_cate)
-
-# NetT-GCN
-gcn = NetTGCN(
-    device=get_device(),
-    epochs=100,
-    hidden_features=32,
-    kernel="kr_rbf",
-    seed=42,
-).fit(sim)
-
-gcn_out = gcn.estimate_effects(sim, X_cate=X_cate)
-
-print(linear_out["direct_mean"], linear_out["peer_mean"])
-print(gcn_out["direct_mean"], gcn_out["peer_mean"])
-```
-
----
-
 # Real Data
 
 This repository includes a real-world dataset for studying **network interference across U.S. counties**.
