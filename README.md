@@ -103,7 +103,6 @@ for u, v in zip(network["geoid_o"], network["geoid_d"]):
 ```
 
 ---
-```
 
 ## 🧩 Interpretation
 
