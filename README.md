@@ -5,7 +5,7 @@ A package-style implementation of **NetT-learner**, a meta-learning framework fo
 This repository provides:
 
 * A reproducible **simulation framework**
-* A modular **Python package (`nett_learner`)**
+* A modular **Python package (`nett_learner`)** (stil processing)
 * A **real-world dataset** based on U.S. counties
 * Implementations of:
 
