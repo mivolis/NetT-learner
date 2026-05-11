@@ -29,32 +29,10 @@ The framework consists of two stages:
    * μ₁(x, g)
    * μ₀(x, g)
 
-   Then compute node-level effects:
-
-   * τᵢ (direct)
-   * Δᵢ (peer)
+   Then compute node-level effects.
 
 2. **Stage 2 (Kernel smoothing)**
-   Estimate conditional effects:
-
-   * τ(x)
-   * Δ(x)
-
----
-
-# 📦 Installation
-
-## Local install
-
-```bash
-pip install -e .
-```
-
-## Install from GitHub
-
-```bash
-pip install git+https://github.com/yourname/NetT-learner.git
-```
+   Estimate conditional effects.
 
 ---
 
